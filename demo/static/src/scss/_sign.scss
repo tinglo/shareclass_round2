@@ -1,0 +1,183 @@
+$button-color:  #344FA8;
+$panel-width: 480px;
+$margin-navbar-height: 50px;
+$fb-color: #3B5998;
+$google-color: #E93F4B;
+.panel-title{
+  font-size: 25px;
+  text-align: center;
+  color: #3C3C3C;
+  padding: 5px 0px 10px 0px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.navbar-default {
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12);
+}
+.login-panel,
+.register-panel,
+.reset-panel{
+  padding: 0px 30px 16px 30px;
+
+  //display: table;
+  margin-left: auto;
+  margin-right: auto;
+  width: $panel-width;
+  height: 50%;
+  margin-top: $margin-navbar-height +40;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 1px;
+  box-shadow: 0px 2px 2px 1px rgba(0, 0, 0, 0.15);
+}
+label[for="email"], label[for="password"]{
+  font-weight: normal;
+  font-size: 16px;
+ // color: yellow;
+}
+.form-style{
+//  box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 2px;
+  margin: 18px 0px 0px 0px;
+  font-size: 17px;
+  height: 35px;
+}
+.form-style:focus {
+ // background-color: lighten(gray, 45%);
+  border: 2px solid lighten(gray, 12%);
+  outline: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); 
+}
+.btn-style{
+  margin-top: 20px;
+  color: white;
+  background-color: lighten($button-color ,8%);;
+  -webkit-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  transition: all .1s linear;
+}
+.btn-style:hover,
+.btn-style:focus,
+.btn-style.focus,
+.btn-style:active,
+.btn-style.active{
+  color: white;
+  background-color: darken($button-color ,8%);
+  border-color: darken($button-color ,12%);
+}
+.btn-lg{
+//  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  border-radius: 3px;
+  width: $panel-width/2;
+}
+.login-word,
+.register-word{
+  margin-top: 5px;
+  text-align: center;
+}
+.login-word > a,
+.register-word > a{
+  font-size: 16px;
+}
+.login-word > a:hover,
+.register-word > a:hover{
+  color: #3C3C3C;
+  text-decoration: none;
+}
+
+.diff-acc-title{
+  color: #3C3C3C;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding-top: 15px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.diff-acc{ //to display fb google button
+  display:flex;
+  width: 100%;
+  justify-content: center;
+}
+.acc-style{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  //padding: 2px;
+  overflow: hidden;
+  border-radius: 4px;
+  position: relative;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+}
+.acc-style > a{
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+ // background-color: yellow;
+}
+.acc-style > a:hover,
+.acc-style > a:focus{
+  text-decoration: none;
+}
+.acc-word{
+  font-size: 18px;
+  color: lighten( #3C3C3C, 18% );
+  //font-weight: bold;
+}
+.acc-word:hover{
+  color: #3C3C3C;
+}
+.acc-word > i{
+  font-size: 20px;
+  margin-right: 8px;
+}
+.fb-word, .google-word{
+  @extend .acc-word;
+}
+.fb-word > i{
+  color: $fb-color;
+}
+.google-word > i{
+  color: $google-color;
+}
+.error-msg{
+  //background-color: pink;
+  border: 1px solid red;
+  color: red;
+  font-size: 18px;
+  line-height: 50px;
+  height: 50px;
+  padding-left: 15px;
+  border-radius: 3px;
+  display: none;
+}
+.error-msg > i{
+  margin-right: 5px;
+}
+.validate-error{
+  font-size: 16px;
+  color: #FF8800;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px){
+  .navbar-nav{
+    display: block;
+  }
+}
+@media screen and (max-width: $panel-width){
+  .login-panel{
+    width: 95%;
+  }
+  .diff-acc{
+    vertical-align: top;
+    flex-direction: column;
+  }
+  .acc-style{
+    width: 100%;
+    margin-top: 10px;
+  }
+}

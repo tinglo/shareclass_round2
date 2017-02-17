@@ -1,0 +1,40 @@
+$footer-height: 130px;
+$contact-height: 40px;
+$footer-bgcolor: #2d2d30;
+$footer-bgcolor: #A19B88;
+$footer-word-color: #3C3C3C;
+
+p { //contact word
+  color:  lighten($footer-word-color, 15%);
+  font-size: 12px;
+  line-height: 8px;
+}
+
+footer {
+  height: $footer-height;
+  width: 100%;
+  background-color: lighten($footer-bgcolor, 20%);
+  margin: 0;
+}
+footer a {
+  font-size: 15px;
+  color: $footer-word-color;
+}
+footer a:hover {
+  color: $footer-word-color;
+  opacity: .7;
+  text-decoration: none;
+}  
+.form-control {
+  border-radius: 0;
+}
+.info{
+  height: 65%;
+  width: 100%;
+  padding-top: 25px;
+}
+@media screen and (max-width: 768px){
+  footer {
+    height: $footer-height + 35;
+  }
+}

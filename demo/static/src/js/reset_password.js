@@ -1,0 +1,128 @@
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+ 
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+
+//data = {"username": "test19@gmail.com","password":"test123","confirm_password":"test123"};
+
+var error_msg="test";
+$("form").submit(function(e){
+//	alert("test");
+	e.preventDefault();
+	//console.log(JSON.stringify(data));
+    $.ajax({
+    	url: location.pathname,
+        type: "POST",
+		data: {'new_password':$('input[name=new_password]').val(),
+               'confirm_new_password':$('input[name=confirm_new_password]').val(),
+               'entry_token':$('input[name=entry_token]').val()
+        },
+        dataType: "json",
+        complete: function(jqXHR,ajaxOptions, thrownError) {
+            if (jqXHR.status === 200){ //login success
+                alert("密碼設置成功!");
+                window.location.href = "/accounts/login/";
+             //   alert("以傳送至您的信箱:" + )
+
+            }
+            else{
+                document.getElementById('error').style.display = "block";
+                document.getElementById("error").innerHTML = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>' + jqXHR.responseText.split('"')[3];
+                document.getElementById("form-id").reset();
+            }   	            
+        }
+    });
+});
+
+
+/////confirm input
+var error_username = true;
+var error_password = true;
+
+//control button
+function control_button(){
+    if(error_password == false){
+        document.getElementById("submit-button").disabled = false;
+    }
+    else{
+        document.getElementById("submit-button").disabled = true;
+    }
+}
+
+//confirm email
+//Regular expression Testing
+
+emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+pwdRule = /^.[A-Za-z0-9]+$/;
+
+function validate_password_format(){
+    var pwd1 = $("#password").val();
+
+    if (pwd1.length < 21 && pwd1.length > 5 && pwd1.search(pwdRule)!= -1){
+        $("#validate-error-password-format").text("");  
+        error_password = false; 
+    }
+    else{
+        if(pwd1.length == 0 ){
+            $("#validate-error-password-format").text("");
+        }   
+        else{
+            $("#validate-error-password-format").text("密碼格式不符"); 
+        } 
+        error_password = true;
+    }
+}
+function validate_password_same(){
+    $(document).ready(function() {
+        $("#password").keyup(check_pwd);
+        $("#confirm-password").keyup(check_pwd);
+    });
+}
+function check_pwd() {
+    var pwd1 = $("#password").val();
+    var pwd2 = $("#confirm-password").val();
+
+    if(pwd1 == pwd2) {
+        $("#validate-error-password").text(""); 
+        error_password = false;       
+    }
+    else {
+        $("#validate-error-password").text("輸入密碼不相同");  
+        error_password = true;
+    }   
+    //control button
+    control_button();
+}

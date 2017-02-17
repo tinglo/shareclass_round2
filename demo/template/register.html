@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  {% load rest_framework %}
+  {% load staticfiles %}
+
+  <title>share class</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'dist/css/bootstrap.min.css' %}"> 
+  <link rel="stylesheet" href="{% static 'dist/css/font-awesome.min.css' %}">
+  <link href="{% static 'dist/css/register.css' %}" rel="stylesheet" type="text/css" /> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body id="homePage" data-spy="scroll" data-target=".navbar">
+  <div class="id-wrapper">
+    <div class="top-navbar">
+      <nav id="navbar-id" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button> 
+
+            <a class="navbar-brand" href="/" id="title-id">ShareClass</a>
+          </div>
+
+          <div class="collapse navbar-collapse myNavbar">
+            <ul class="nav navbar-nav navbar-right log-divider">
+              <li><a href="/accounts/login/">登入</a></li>
+              <li><a href="/accounts/register/">註冊</a></li>
+            </ul>
+          </div> 
+        </div>
+      </nav>
+    </div><!--navbar-->
+    <!--form-->
+    <div class="container">
+      <div class="login-panel">
+        <form  method="post" role="form" id="form-id">
+
+          {% csrf_token %}
+
+          <h2 class="panel-title">註冊</h2>
+          <!-- login error message -->
+          
+          <div class="error-msg" id="error"></div>
+
+          <!-- end of error message -->
+          
+          <div class="form-group">
+            <!--<label for="username">使用者名稱</label> -->
+            <input type="email" name="username" id="username" class="form-control form-style" placeholder="電子信箱" onblur="validate_username()" required autofocus>
+          </div>
+          <p id="validate-error-username" class="validate-error"></p>
+
+          <div class="form-group">
+           <!-- <label for="password">密碼</label>-->
+            <input name="password" id="password" placeholder="密碼(6-20位英文數字)" class="form-control form-style" type="password" onblur="validate_password_format()" required/>
+          </div>
+          <p id="validate-error-password-format" class="validate-error"></p>
+
+          <div class="form-group">
+           <!-- <label for="password">密碼</label>-->
+            <input name="confirm_password" id="confirm-password" placeholder="確認密碼" class="form-control form-style" type="password" onfocus="validate_password_same()" required/>
+          </div>
+          <p id="validate-error-password" class="validate-error"></p>
+
+          <button class="btn btn-lg btn-style btn-block" type="submit" id="submit-button" >註冊</button>
+        </form>
+        <div class="login-word">
+          <a href="/accounts/login/">已有帳號，登入</a>
+        </div>
+        <h4 class="diff-acc-title">用其他帳戶註冊</h4>
+        <div class="diff-acc text-center">
+          <li class="acc-style">
+            <a class="fb-word" href="{% url "social:begin" "facebook" %}">
+              <i class="fa fa-facebook-square" aria-hidden="true"></i>
+              Facebook
+            </a>
+          </li>
+          <li class="acc-style text-center">
+            <a class="google-word" href="{% url "social:begin" "google-oauth2" %}">
+              <i class="fa fa-google-plus" aria-hidden="true"></i>
+              Google
+          </li>
+        </div>
+      </div><!--end of login pangel-->
+    </div> <!--end of loign container-->
+  </div><!--end of all class-->
+  <script src="{% static 'dist/js/register.js' %}"></script>
+</body>
+</html>
